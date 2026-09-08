@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Alunos cadastrados</title>
+	<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+	<main class="container">
+		<header>
+			<h1>Gerenciamento de alunos</h1>
+			<p>Consulte e gerencie os alunos cadastrados.</p>
+		</header>
+
+		{% with mensagens = get_flashed_messages() %}
+			{% if mensagens %}
+				{% for mensagem in mensagens %}
+					<div class="mensagem">{{ mensagem }}</div>
+				{% endfor %}
+			{% endif %}
+		{% endwith %}
+
+		<div class="acoes">
+			<a class="botao" href="{{ url_for('cadastrar') }}">Cadastrar aluno</a>
+		</div>
+
+		{% if alunos %}
+			<div class="tabela-container">
+				<table>
+					<thead>
+						<tr>
+							<th>Nome</th>
+							<th>CPF</th>
+							<th>E-mail</th>
+							<th>Telefone</th>
+							<th>Curso</th>
+							<th>Ações</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for aluno in alunos %}
+							<tr>
+								<td>{{ aluno['nome'] }}</td>
+								<td>{{ aluno['cpf'] }}</td>
+								<td>{{ aluno['email'] }}</td>
+								<td>{{ aluno['telefone'] or '-' }}</td>
+								<td>{{ aluno['curso'] }}</td>
+								<td>
+									<div class="acoes-tabela">
+										<a class="editar" href="{{ url_for('editar', id=aluno['id']) }}">Editar</a>
+										<form action="{{ url_for('excluir', id=aluno['id']) }}" method="post">
+											<button class="excluir" type="submit">Excluir</button>
+										</form>
+									</div>
+								</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		{% else %}
+			<section class="vazio">
+				<h2>Nenhum aluno cadastrado</h2>
+				<p>Comece cadastrando o primeiro aluno.</p>
+			</section>
+		{% endif %}
+	</main>
+</body>
+</html>

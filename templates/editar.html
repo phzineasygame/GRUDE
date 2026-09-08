@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Editar aluno</title>
+	<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+	<main class="container">
+		<header>
+			<h1>Editar aluno</h1>
+			<p>Atualize os dados do aluno selecionado.</p>
+		</header>
+
+		<form class="formulario" action="{{ url_for('editar', id=aluno['id']) }}" method="post">
+			<label for="nome">Nome</label>
+			<input id="nome" name="nome" type="text" value="{{ aluno['nome'] }}" required>
+
+			<label for="cpf">CPF</label>
+			<input id="cpf" name="cpf" type="text" value="{{ aluno['cpf'] }}" required>
+
+			<label for="email">E-mail</label>
+			<input id="email" name="email" type="email" value="{{ aluno['email'] }}" required>
+
+			<label for="telefone">Telefone</label>
+			<input id="telefone" name="telefone" type="tel" value="{{ aluno['telefone'] or '' }}">
+
+			<label for="curso">Curso</label>
+			<input id="curso" name="curso" type="text" value="{{ aluno['curso'] }}" required>
+
+			<div class="botoes">
+				<button class="botao" type="submit">Salvar alterações</button>
+				<a class="botao cancelar" href="{{ url_for('index') }}">Cancelar</a>
+			</div>
+		</form>
+	</main>
+</body>
+</html>
