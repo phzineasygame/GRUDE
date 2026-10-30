@@ -1,3 +1,4 @@
+
 from flask import Flask, render_template, request, redirect, url_for, flash
 import sqlite3
 
@@ -31,7 +32,6 @@ def criar_banco():
     conexao.close()
 
 
-# READ - Listar alunos
 @app.route("/")
 def index():
     conexao = conectar_banco()
@@ -45,7 +45,6 @@ def index():
     return render_template("index.html", alunos=alunos)
 
 
-# CREATE - Formulário de cadastro
 @app.route("/cadastrar", methods=["GET", "POST"])
 def cadastrar():
     if request.method == "POST":
@@ -72,7 +71,6 @@ def cadastrar():
     return render_template("cadastrar.html")
 
 
-# UPDATE - Editar aluno
 @app.route("/editar/<int:id>", methods=["GET", "POST"])
 def editar(id):
     conexao = conectar_banco()
@@ -116,7 +114,6 @@ def editar(id):
     return render_template("editar.html", aluno=aluno)
 
 
-# DELETE - Excluir aluno
 @app.route("/excluir/<int:id>", methods=["POST"])
 def excluir(id):
     conexao = conectar_banco()
